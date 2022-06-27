@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="jp">
 
@@ -5,11 +7,45 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>MyFilter</title>
+    <!--<link rel="stylesheet" href="{% static 'css/cal.css' %}">-->
+    <script src="{% static 'javascript/cal.js' %}"></script>
+
 </head>
 
 <body>
-    <p>home page</p>
+
+    <form method="post">{% csrf_token %}
+        <h3>検索ワード</h3>
+        <input type="text" name="word" size="30" maxlength="30">
+        <h3>フィルター</h3>
+        <div class="wrapper">
+            <div id="calc">
+                <div>
+                    <input readonly id="result" type="text" value="0">
+                    <input type="button" value="C" onclick="onClearClick()">
+                </div>
+                <div>
+                    <input type="button" value="1" onclick="onNumClick(this.value)">
+                    <input type="button" value="2" onclick="onNumClick(this.value)">
+                    <input type="button" value="3" onclick="onNumClick(this.value)">
+                </div>
+                <div>
+                    <input type="button" value="+" onclick="onOpeClick(this.value)">
+                    <input type="button" value="-" onclick="onOpeClick(this.value)">
+                    <input type="button" value="×" onclick="onOpeClick(this.value)">
+                    <input type="button" value="÷" onclick="onOpeClick(this.value)">
+                    <input type="button" value="=" onclick="onEqualClick()">
+                </div>
+            </div>
+        </div>
+        <h3>ソート</h3>
+        <input type="radio" name="sort" value="asce">昇順
+        <input type="radio" name="sort" value="desc">降順
+        <br>
+        <br>
+        <button type="submit">検索</button>
+    </form>
 </body>
 
 </html>
