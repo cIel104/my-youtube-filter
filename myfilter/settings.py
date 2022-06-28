@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 from pathlib import Path
 import os
 from dotenv import load_dotenv
+import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -129,7 +130,10 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # STATIC_DIR = Path.joinpath(BASE_DIR, 'static')
 
-load_dotenv(verbose=True)
-dotenv_path = join(dirname(__file__), '.env')
-load_dotenv(dotenv_path)
-youtube_api_key = os.environ.get("youtube_api_key")
+#load_dotenv(verbose=True)
+#dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
+#load_dotenv(dotenv_path)
+#youtube_api_key = os.environ.get("youtube_api_key")
+env = environ.Env()
+env.read_env(os.path.join(BASE_DIR,'.env'))
+YOUTUBE_API_KEY = env('youtube_api_key')

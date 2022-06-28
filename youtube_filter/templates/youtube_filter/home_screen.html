@@ -15,14 +15,14 @@
 
 <body>
 
-    <form method="post">{% csrf_token %}
+    <form action="{% url 'result_screen' %}" method="post">{% csrf_token %}
         <h3>検索ワード</h3>
         <input type="text" name="word" size="30" maxlength="30">
         <h3>フィルター</h3>
         <div class="wrapper">
             <div id="calc">
                 <div>
-                    <input readonly id="result" type="text" value="0">
+                    <input readonly id="result" name="result" type="text" value="0">
                     <input type="button" value="C" onclick="onClearClick()">
                 </div>
                 <div>
