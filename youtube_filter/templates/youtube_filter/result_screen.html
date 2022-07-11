@@ -10,9 +10,19 @@
 
 <body>
     <p>{{ words }}</p>
-    <p>{{ result }}</p>
-    <p>{{ sort }}</p>
-    <p>{{ password }}</p>
+    <p>{{ filter }}</p>
+    <p>{{ display }}</p>
+    <!-- <p>{{ read }}</p> -->
+    <p>{{ order }}</p>
+    <a href={{videos.0.url}}>{{videos.0.url}}</a>
+    <p>
+        {% for video in videos %}
+        <a href={{video.url}}>{{video.title}}</a>
+        <br>
+        {% endfor %}
+    </p>
+    <!--<p>{{ password }}</p>-->
+
 </body>
 
 </html>

@@ -130,10 +130,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # STATIC_DIR = Path.joinpath(BASE_DIR, 'static')
 
-#load_dotenv(verbose=True)
-#dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
-#load_dotenv(dotenv_path)
-#youtube_api_key = os.environ.get("youtube_api_key")
 env = environ.Env()
-env.read_env(os.path.join(BASE_DIR,'.env'))
-YOUTUBE_API_KEY = env('youtube_api_key')
+env.read_env('.env')
+YOUTUBE_API_KEY = env('YOUTUBE_API_KEY')

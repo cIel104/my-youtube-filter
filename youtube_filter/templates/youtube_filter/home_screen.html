@@ -17,31 +17,42 @@
 
     <form action="{% url 'result_screen' %}" method="post">{% csrf_token %}
         <h3>検索ワード</h3>
-        <input type="text" name="word" size="30" maxlength="30">
+        <input type="text" name="word" size="30" maxlength="30" required>
         <h3>フィルター</h3>
         <div class="wrapper">
             <div id="calc">
                 <div>
-                    <input readonly id="result" name="result" type="text" value="0">
+                    <input readonly id="filter" name="filter" type="text" value="" required>
                     <input type="button" value="C" onclick="onClearClick()">
                 </div>
                 <div>
-                    <input type="button" value="1" onclick="onNumClick(this.value)">
-                    <input type="button" value="2" onclick="onNumClick(this.value)">
-                    <input type="button" value="3" onclick="onNumClick(this.value)">
+                    <input type="button" value="再生回数" onclick="onNumClick(this.value)">
+                    <input type="button" value="高評価" onclick="onNumClick(this.value)">
+                    <input type="button" value="低評価" onclick="onNumClick(this.value)">
+                </div>
+                <div>
+                    <input type="button" value="お気に入り登録数" onclick="onNumClick(this.value)">
+                    <input type="button" value="コメント数" onclick="onNumClick(this.value)">
                 </div>
                 <div>
                     <input type="button" value="+" onclick="onOpeClick(this.value)">
                     <input type="button" value="-" onclick="onOpeClick(this.value)">
                     <input type="button" value="×" onclick="onOpeClick(this.value)">
                     <input type="button" value="÷" onclick="onOpeClick(this.value)">
-                    <input type="button" value="=" onclick="onEqualClick()">
                 </div>
             </div>
         </div>
+        <h3>表示件数</h3>
+        <input type="radio" name="display" value="10" checked="checked">10
+        <input type="radio" name="display" value="20">20
+        <input type="radio" name="display" value="30">30
+        <!-- <h3>読み込み件数</h3>
+        <input type="radio" name="read" value="10" checked="checked">30
+        <input type="radio" name="read" value="50">50
+        <input type="radio" name="read" value="100">100 -->
         <h3>ソート</h3>
-        <input type="radio" name="sort" value="asce">昇順
-        <input type="radio" name="sort" value="desc">降順
+        <input type="radio" name="order" value="desc" checked="checked">降順
+        <input type="radio" name="order" value="asce">昇順
         <br>
         <br>
         <button type="submit">検索</button>
