@@ -12,12 +12,12 @@
     <p>{{ words }}</p>
     <p>{{ filter }}</p>
     <p>{{ display }}</p>
-    <!-- <p>{{ read }}</p> -->
+    <p>{{ read }}</p>
     <p>{{ order }}</p>
     <a href={{videos.0.url}}>{{videos.0.url}}</a>
     <p>
         {% for video in videos %}
-        <a href={{video.url}}>{{video.title}}</a>
+        <a href={{video.url}}>{{video}}</a>
         <br>
         {% endfor %}
     </p>
