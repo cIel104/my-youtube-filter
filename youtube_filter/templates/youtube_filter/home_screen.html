@@ -1,62 +1,127 @@
-{% load static %}
+{% extends 'youtube_filter/base.html' %}
 
-<!DOCTYPE html>
-<html lang="jp">
+{% block content %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MyFilter</title>
-    <!--<link rel="stylesheet" href="{% static 'css/cal.css' %}">-->
-    <script src="{% static 'javascript/cal.js' %}"></script>
+<form action="{% url 'result_screen' %}" method="post">{% csrf_token %}
+    <div class="noselect">
+        <h3>Word</h3>
+    </div>
 
-</head>
+    <div class="word">
+        <input type="text" name="word" id="word" value="" size="30" maxlength="30"
+            onkeyup="checkInput(this.value, filter.value)">
+    </div>
 
-<body>
+    <div class="noselect">
+        <h3>Filter</h3>
+    </div>
 
-    <form action="{% url 'result_screen' %}" method="post">{% csrf_token %}
-        <h3>検索ワード</h3>
-        <input type="text" name="word" size="30" maxlength="30" required>
-        <h3>フィルター</h3>
-        <div class="wrapper">
-            <div id="calc">
-                <div>
-                    <input readonly id="filter" name="filter" type="text" value="" required>
-                    <input type="button" value="C" onclick="onClearClick()">
-                </div>
-                <div>
-                    <input type="button" value="再生回数" onclick="onNumClick(this.value)">
-                    <input type="button" value="高評価" onclick="onNumClick(this.value)">
-                    <input type="button" value="低評価" onclick="onNumClick(this.value)">
-                </div>
-                <div>
-                    <input type="button" value="お気に入り登録数" onclick="onNumClick(this.value)">
-                    <input type="button" value="コメント数" onclick="onNumClick(this.value)">
-                </div>
-                <div>
-                    <input type="button" value="+" onclick="onOpeClick(this.value)">
-                    <input type="button" value="-" onclick="onOpeClick(this.value)">
-                    <input type="button" value="×" onclick="onOpeClick(this.value)">
-                    <input type="button" value="÷" onclick="onOpeClick(this.value)">
-                </div>
+    <div class="wrapper noselect">
+        <div class="calc">
+            <div>
+                <input readonly id="filter" name="filter" type="text" value="">
+            </div>
+            <div class="first_row">
+                <input type="button" value="再生回数" onclick="onNumClick(this.value)" style="width: 222px; height: 50px;">
+                <input type="button" value="高評価" onclick="onNumClick(this.value)" style="width: 222px; height: 50px;">
+            </div>
+            <div class="second_row">
+                <input type="button" value="チャンネル登録者数" onclick="onNumClick(this.value)"
+                    style="width: 222px; height: 50px;">
+                <input type="button" value="コメント数" onclick="onNumClick(this.value)" style="width: 222px; height: 50px;">
+            </div>
+            <div class="third_row">
+                <input type="button" value="+" onclick="onOpeClick(this.value)" style="width: 86px; height: 50px;">
+                <input type="button" value="-" onclick="onOpeClick(this.value)" style="width: 87px; height: 50px;">
+                <input type="button" value="×" onclick="onOpeClick(this.value)" style="width: 87px; height: 50px;">
+                <input type="button" value="÷" onclick="onOpeClick(this.value)" style="width: 87px; height: 50px;">
+                <input type="button" value="C" onclick="onClearClick()" style="width: 86px; height: 50px;">
             </div>
         </div>
-        <h3>表示件数</h3>
-        <input type="radio" name="display" value="10" checked="checked">10
-        <input type="radio" name="display" value="20">20
-        <input type="radio" name="display" value="30">30
-        <h3>読み込み件数</h3>
-        <input type="radio" name="read" value="30" checked="checked">30
-        <input type="radio" name="read" value="50">50
-        <input type="radio" name="read" value="100">100
-        <h3>ソート</h3>
-        <input type="radio" name="order" value="desc" checked="checked">降順
-        <input type="radio" name="order" value="asce">昇順
-        <br>
-        <br>
-        <button type="submit">検索</button>
-    </form>
-</body>
+    </div>
 
-</html>
+    <details class="noselect">
+        <summary>Setting</summary>
+
+        <h3>Sort</h3>
+        <div class="sort_wrapper">
+            <label class="ECM_RadioInput">
+                <input type="radio" name="sort" value="desc" class="ECM_RadioInput-Input" id="sort1" checked="checked">
+                <span class="ECM_RadioInput-DummyInput"></span><span class="ECM_RadioInput-LabelText">降順</span>
+            </label>
+            <label class="ECM_RadioInput">
+                <input type="radio" name="sort" value="asce" class="ECM_RadioInput-Input" id="sort2"><span
+                    class="ECM_RadioInput-DummyInput"></span><span class="ECM_RadioInput-LabelText">昇順</span>
+            </label>
+        </div>
+
+
+        <h3>Display</h3>
+        <div class="display_wrapper">
+            <label class="ECM_RadioInput">
+                <input type="radio" name="display" value="10" class="ECM_RadioInput-Input" id="display1"
+                    checked="checked"><span class="ECM_RadioInput-DummyInput"></span><span
+                    class="ECM_RadioInput-LabelText">10</span>
+            </label>
+            <label class="ECM_RadioInput">
+                <input type="radio" name="display" value="20" class="ECM_RadioInput-Input" id="display2"><span
+                    class="ECM_RadioInput-DummyInput"></span><span class="ECM_RadioInput-LabelText">20</span>
+            </label>
+            <label class="ECM_RadioInput">
+                <input type="radio" name="display" value="30" class="ECM_RadioInput-Input" id="display3"><span
+                    class="ECM_RadioInput-DummyInput"></span><span class="ECM_RadioInput-LabelText">30</span>
+            </label>
+
+
+        </div>
+
+        <h3>Read From Youtube</h3>
+        <div class="read_wrapper">
+            <label class="ECM_RadioInput">
+                <input type="radio" name="read" value="15" class="ECM_RadioInput-Input" id="read1"
+                    checked="checked"><span class="ECM_RadioInput-DummyInput"></span><span
+                    class="ECM_RadioInput-LabelText">10</span>
+            </label>
+            <label class="ECM_RadioInput">
+                <input type="radio" name="read" value="35" class="ECM_RadioInput-Input" id="read2"><span
+                    class="ECM_RadioInput-DummyInput"></span><span class="ECM_RadioInput-LabelText">30</span>
+            </label>
+            <label class="ECM_RadioInput">
+                <input type="radio" name="read" value="50" class="ECM_RadioInput-Input" id="read3"><span
+                    class="ECM_RadioInput-DummyInput"></span><span class="ECM_RadioInput-LabelText">50</span>
+            </label>
+            <label class="ECM_RadioInput">
+                <input type="radio" name="read" value="100" class="ECM_RadioInput-Input" id="read4"><span
+                    class="ECM_RadioInput-DummyInput"></span><span class="ECM_RadioInput-LabelText">100</span>
+            </label>
+        </div>
+
+        <h3>Order</h3>
+        <div class="order_wrapper">
+            <label class="ECM_RadioInput">
+                <input type="radio" name="order" value="relevance" class="ECM_RadioInput-Input" id="order1"
+                    checked="checked">
+                <span class="ECM_RadioInput-DummyInput"></span><span class="ECM_RadioInput-LabelText">関連度</span>
+            </label>
+            <label class="ECM_RadioInput">
+                <input type="radio" name="order" value="viewCount" class="ECM_RadioInput-Input" id="order2"><span
+                    class="ECM_RadioInput-DummyInput"></span><span class="ECM_RadioInput-LabelText">再生回数</span>
+            </label>
+            <label class="ECM_RadioInput">
+                <input type="radio" name="order" value="date" class="ECM_RadioInput-Input" id="order3"><span
+                    class="ECM_RadioInput-DummyInput"></span><span class="ECM_RadioInput-LabelText">新しい順</span>
+            </label>
+        </div>
+
+
+
+    </details>
+
+    <br>
+    <div class="submit_wrapper noselect">
+        <button type="submit" id="submit-btn" disabled>serch</button>
+    </div>
+
+</form>
+
+{% endblock %}

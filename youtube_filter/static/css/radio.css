@@ -1,0 +1,56 @@
+.ECM_RadioInput {
+    padding: 12px 8px;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.ECM_RadioInput-Input {
+    opacity: 0;
+    width: 0;
+    margin: 0;
+}
+
+.ECM_RadioInput:hover>.ECM_RadioInput-DummyInput {
+    background: #BBBBBB;
+}
+
+.ECM_RadioInput-Input:focus+.ECM_RadioInput-DummyInput {
+    background: #BBBBBB;
+}
+
+.ECM_RadioInput-Input:checked+.ECM_RadioInput-DummyInput {
+    background: #333333;
+}
+
+.ECM_RadioInput-Input:checked+.ECM_RadioInput-DummyInput::before {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #FFFFFF;
+}
+
+.ECM_RadioInput-DummyInput {
+    position: relative;
+    top: 0;
+    left: 0;
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #EEEEEE;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .4) inset;
+}
+
+.ECM_RadioInput-LabelText {
+    margin-left: 12px;
+    display: inline-block;
+    font-size: 18px;
+    font-weight: bold;
+}

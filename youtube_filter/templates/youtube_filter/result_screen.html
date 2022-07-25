@@ -1,28 +1,20 @@
-<!DOCTYPE html>
-<html lang="jp">
+{% extends 'youtube_filter/base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>result</title>
-</head>
+{% block content %}
 
-<body>
-    <p>{{ words }}</p>
-    <p>{{ filter }}</p>
-    <p>{{ display }}</p>
-    <p>{{ read }}</p>
-    <p>{{ order }}</p>
-    <a href={{videos.0.url}}>{{videos.0.url}}</a>
-    <p>
-        {% for video in videos %}
-        <a href={{video.url}}>{{video}}</a>
-        <br>
-        {% endfor %}
-    </p>
-    <!--<p>{{ password }}</p>-->
+<p>{{ words }}</p>
+<p>{{ filter }}</p>
+<p>{{ display }}</p>
+<p>{{ read }}</p>
+<p>{{ order }}</p>
+<p>{{ sort }}</p>
+<a href={{videos.0.url}}>{{videos.0.url}}</a><br>
+<a href={{videos.0.thumbnail}}>{{videos.0.thumbnail}}</a>
+<p>
+    {% for video in videos %}
+    <a href={{video.url}}><img src="{{video.thumbnail}}">{{video}}</a>
+    <br>
+    {% endfor %}
+</p>
 
-</body>
-
-</html>
+{% endblock %}
