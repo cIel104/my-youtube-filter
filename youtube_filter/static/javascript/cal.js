@@ -16,8 +16,9 @@ function onClearClick() {
 }
 
 // フィルターキー押下
-function onNumClick(val) {
+function onNumClick(className) {
 
+    let val = document.querySelector(className).dataset["value"]
     if (isEquLast == true) {
         filter.value += val;
         isEquLast = false;
@@ -27,8 +28,9 @@ function onNumClick(val) {
 }
 
 // 演算子キー押下
-function onOpeClick(val) {
+function onOpeClick(className) {
 
+    let val = document.querySelector(className).dataset["value"]
     if (isEquLast == false) {
         filter.value += val;
         isEquLast = true;
@@ -44,3 +46,5 @@ function checkInput(word, filter) {
         button.disabled = true;
     }
 }
+
+// デモ

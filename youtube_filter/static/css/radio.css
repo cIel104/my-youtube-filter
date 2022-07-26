@@ -41,8 +41,8 @@
     top: 0;
     left: 0;
     display: inline-block;
-    width: 32px;
-    height: 32px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     background: #EEEEEE;
     box-shadow: 0 1px 4px rgba(0, 0, 0, .4) inset;

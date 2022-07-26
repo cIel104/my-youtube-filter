@@ -1,0 +1,46 @@
+/* クリック時に色を濃くする */
+input:active {
+    background: #5a5a5a;
+}
+
+/* カーソルを上に乗せた時に色を濃くする */
+/* input:hover { */
+/* background: #747373b9; */
+/* } */
+
+#filter:hover {
+    background: #ffffff;
+    /* ディスプレイ部分は無効化 */
+}
+
+.first_row,
+.second_row,
+.third_row {
+    padding-top: 3px;
+    font-weight: 700;
+}
+
+.btn-border {
+    font-weight: 700;
+    line-height: 1.5;
+    position: relative;
+    display: inline-block;
+    padding: 11px;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.3s;
+    text-align: center;
+    vertical-align: middle;
+    letter-spacing: 0.1em;
+    color: #212529;
+}
+
+.btn-border {
+    border: 2px solid #000;
+    background: #fff;
+}
+
+.btn-border:hover {
+    color: #fff !important;
+    background: #000;
+}

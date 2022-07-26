@@ -6,21 +6,6 @@ input {
     text-align: center;
 }
 
-/* カーソルを上に乗せた時に色を濃くする */
-input:hover {
-    background: #747373b9;
-}
-
-#filter:hover {
-    background: #ffffff;
-    /* ディスプレイ部分は無効化 */
-}
-
-/* クリック時に色を濃くする */
-input:active {
-    background: #5a5a5a;
-}
-
 body {
     padding-left: 15px;
     text-align: center;
@@ -32,9 +17,16 @@ h3 {
     text-align: center;
 }
 
+.setting h3 {
+    padding-top: 10px;
+}
+
 #filter,
 #word {
+    border: 2px solid #000000;
     width: 450px;
+    font-weight: 500 !important;
+    font-size: large;
 }
 
 .display_wrapper,
@@ -50,12 +42,6 @@ h3 {
 
 .submit_wrapper {
     text-align: center;
-}
-
-.first_row,
-.second_row,
-.third_row {
-    padding-top: 3px;
 }
 
 #submit-btn {
@@ -133,6 +119,5 @@ details[open] summary {
     -ms-user-select: none;
     /* Internet Explorer/Edge */
     user-select: none;
-    /* Non-prefixed version, currently
-                                  supported by Chrome and Opera */
+    /* Non-prefixed version, currently supported by Chrome and Opera */
 }
