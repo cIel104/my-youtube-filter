@@ -2,19 +2,36 @@
 
 {% block content %}
 
-<p>{{ words }}</p>
-<p>{{ filter }}</p>
-<p>{{ display }}</p>
-<p>{{ read }}</p>
-<p>{{ order }}</p>
-<p>{{ sort }}</p>
-<a href={{videos.0.url}}>{{videos.0.url}}</a><br>
-<a href={{videos.0.thumbnail}}>{{videos.0.thumbnail}}</a>
-<p>
-    {% for video in videos %}
-    <a href={{video.url}}><img src="{{video.thumbnail}}">{{video}}</a>
+<body class="result_body">
+    <div class="result_word">Word：{{ words }}</div>
+    <div class="result_filter">
+        Filter&thinsp;：
+        {% for value in filter %}
+        {{ value }}&nbsp;
+        {% endfor %}
+    </div>
+
     <br>
-    {% endfor %}
-</p>
+
+    <ul>
+        {% for video in videos %}
+        <li>
+            <a href={{video.url}}><img src="{{video.thumbnail}}" class="img">
+                <div class="movie_info">
+                    {{video.title}}
+                    <div class="segoe">再生回数：{{video.再生回数}}
+                        高評価：{{video.高評価}}
+                    </div>
+                </div>
+                <br>
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+
+
+
+
 
 {% endblock %}

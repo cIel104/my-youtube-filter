@@ -1,6 +1,9 @@
 // 直前の入力が四則演算か確認
 let isEquLast = true;
 
+//入力した演算子を記憶
+let arithmetic = '';
+
 // 初期表示
 window.onload = function () {
     filter = document.getElementById('filter');
@@ -11,6 +14,7 @@ window.onload = function () {
 // Cキー押下
 function onClearClick() {
     filter.value = "";
+    arithmetic = '';
     isEquLast = true;
     checkInput(word.value, filter.value)
 }
@@ -33,6 +37,7 @@ function onOpeClick(className) {
     let val = document.querySelector(className).dataset["value"]
     if (isEquLast == false) {
         filter.value += val;
+        arithmetic += val;
         isEquLast = true;
     }
 
@@ -48,3 +53,20 @@ function checkInput(word, filter) {
 }
 
 // デモ
+function onClearClickDemo() {
+    if (isEquLast == true) {
+        console.log('a')
+        filter.value = filter.value.slice(0, -1);
+        arithmetic = arithmetic.slice(0, -1);
+        isEquLast = false;
+    } else if (arithmetic == '') {
+        onClearClick();
+    }
+    else {
+        let lastarithmetic = arithmetic.slice(-1);
+        console.log(lastarithmetic);
+        let num = filter.value.lastIndexOf(lastarithmetic);
+        filter.value = filter.value.slice(0, num + 1);
+        isEquLast = true;
+    }
+}

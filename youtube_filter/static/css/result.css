@@ -1,0 +1,65 @@
+html {
+    margin-left: 10px;
+}
+
+h1 {
+    text-align: center !important;
+}
+
+.result_word {
+    padding-top: 15px;
+}
+
+.result_word,
+.result_filter {
+    text-align: center !important;
+    font-size: 30px;
+    font-weight: 700;
+}
+
+/* .result_body { */
+/* background-color: black; */
+/* color: white; */
+/* } */
+
+a:link,
+a:visited,
+a:active {
+    color: black;
+}
+
+a:hover {
+    color: silver !important;
+    text-decoration: none !important;
+}
+
+a {
+    white-space: nowrap;
+}
+
+.img {
+    display: inline-block;
+    vertical-align: bottom;
+}
+
+.movie_info {
+    white-space: pre-line;
+    font-weight: 600;
+}
+
+ul {
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+    padding-inline-end: 40px;
+}
+
+li {
+    list-style-type: none;
+    max-width: 320px;
+    margin-right: auto;
+}
+
+.segoe {
+    font-weight: 500;
+}

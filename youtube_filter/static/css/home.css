@@ -19,13 +19,14 @@ h3 {
 
 .setting h3 {
     padding-top: 10px;
+    display: inline-block;
 }
 
 #filter,
 #word {
     border: 2px solid #000000;
-    width: 450px;
-    font-weight: 500 !important;
+    width: 542px;
+    font-weight: 600 !important;
     font-size: large;
 }
 
@@ -85,6 +86,7 @@ h3 {
 }
 
 details {
+    text-align: center;
     border: none;
     border-radius: 4px;
     padding: .5em .5em 0;
@@ -94,15 +96,19 @@ summary {
     font-weight: bold;
     font-size: 20px;
     text-align: center;
-    margin: -.5em -.5em 0;
+    /* margin: -.5em -.5em 0; */
     padding: .5em;
 }
 
 details[open] {
+    margin: 0 auto;
     padding: .5em;
+    width: 800px;
 }
 
 details[open] summary {
+    margin: 0 auto;
+
     border-bottom: 1px solid #aaa;
     margin-bottom: .5em;
 }

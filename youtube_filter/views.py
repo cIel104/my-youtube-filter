@@ -24,10 +24,6 @@ def result_screen(request):
     filters = {
         'words' : request.POST.get('word'),
         'filter' : filter,
-        'display' : request.POST.get('display'),
-        'read' : request.POST.get('read'),
-        'order' : request.POST.get('order'),
-        'sort' : request.POST.get('sort'),
         'videos' : display_videos,
     }
     return render(request, 'youtube_filter/result_screen.html', filters)
@@ -87,7 +83,7 @@ def get_movie_info(id, youtube):
     #タイトルの取得
     title = youtube.videos().list(part = 'snippet', id = id).execute()['items'][0]['snippet']['title']
     #サムネイルの取得
-    thumbnail = youtube.videos().list(part = 'snippet', id = id).execute()['items'][0]['snippet']['thumbnails']['default']['url']#defaultをhighやmediumに変更できる
+    thumbnail = youtube.videos().list(part = 'snippet', id = id).execute()['items'][0]['snippet']['thumbnails']['medium']['url']#defaultをhighやmediumに変更できる
 
     movie_info = {'再生回数':view_count, '高評価':good_count, 'コメント数':comment_count, 'channelTitle':channel_title, 'title':title, 'thumbnail':thumbnail}
     return movie_info
