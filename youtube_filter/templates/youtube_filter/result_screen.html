@@ -3,24 +3,21 @@
 {% block content %}
 
 <body class="result_body">
-    <div class="result_word">Word：{{ words }}</div>
-    <div class="result_filter">
-        Filter&thinsp;：
-        {% for value in filter %}
-        {{ value }}&nbsp;
-        {% endfor %}
+    <div class="result_title">
+        <a href="/" class="result_word">Word：{{ words }}</a>
+        <br>
+        <a href="/" class="result_filter">Filter：{{ filter }}</a>
     </div>
-
     <br>
-
+    <br>
     <ul>
         {% for video in videos %}
         <li>
             <a href={{video.url}}><img src="{{video.thumbnail}}" class="img">
                 <div class="movie_info">
                     {{video.title}}
-                    <div class="segoe">再生回数：{{video.再生回数}}
-                        高評価：{{video.高評価}}
+                    <div class="segoe">再生回数：{{video.View}}
+                        高評価：{{video.Good}}
                     </div>
                 </div>
                 <br>

@@ -2,7 +2,7 @@
 let isEquLast = true;
 
 //入力した演算子を記憶
-let arithmetic = '';
+let operator = '';
 
 // 初期表示
 window.onload = function () {
@@ -11,12 +11,29 @@ window.onload = function () {
     button = document.getElementById("submit-btn");
 };
 
-// Cキー押下
-function onClearClick() {
+// ACキー押下
+function onAllClearClick() {
     filter.value = "";
-    arithmetic = '';
+    operator = '';
     isEquLast = true;
     checkInput(word.value, filter.value)
+}
+
+// Cキー押下
+function onClearClick() {
+    if (isEquLast == true) {
+        filter.value = filter.value.slice(0, -1);
+        operator = operator.slice(0, -1);
+        isEquLast = false;
+    } else if (operator == '') {
+        onAllClearClick();
+    }
+    else {
+        let lastoperator = operator.slice(-1);
+        let num = filter.value.lastIndexOf(lastoperator);
+        filter.value = filter.value.slice(0, num + 1);
+        isEquLast = true;
+    }
 }
 
 // フィルターキー押下
@@ -37,7 +54,7 @@ function onOpeClick(className) {
     let val = document.querySelector(className).dataset["value"]
     if (isEquLast == false) {
         filter.value += val;
-        arithmetic += val;
+        operator += val;
         isEquLast = true;
     }
 
@@ -49,24 +66,5 @@ function checkInput(word, filter) {
         button.disabled = false;
     } else {
         button.disabled = true;
-    }
-}
-
-// デモ
-function onClearClickDemo() {
-    if (isEquLast == true) {
-        console.log('a')
-        filter.value = filter.value.slice(0, -1);
-        arithmetic = arithmetic.slice(0, -1);
-        isEquLast = false;
-    } else if (arithmetic == '') {
-        onClearClick();
-    }
-    else {
-        let lastarithmetic = arithmetic.slice(-1);
-        console.log(lastarithmetic);
-        let num = filter.value.lastIndexOf(lastarithmetic);
-        filter.value = filter.value.slice(0, num + 1);
-        isEquLast = true;
     }
 }

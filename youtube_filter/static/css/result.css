@@ -14,7 +14,13 @@ h1 {
 .result_filter {
     text-align: center !important;
     font-size: 30px;
-    font-weight: 700;
+    font-weight: 500;
+}
+
+.result_word:hover,
+.result_filter:hover {
+    color: black !important;
+    text-decoration: none !important;
 }
 
 /* .result_body { */
@@ -62,4 +68,8 @@ li {
 
 .segoe {
     font-weight: 500;
+}
+
+.result_title {
+    text-align: center;
 }

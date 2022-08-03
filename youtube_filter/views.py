@@ -13,17 +13,17 @@ def result_screen(request):
     videos = serch_youtube(request = request)
 
     #フィルターを分解
-    filter = re.split("([+-×÷])",request.POST.get('filter'))
+    # filter = re.split("([+-×÷])",request.POST.get('filter'))
 
     #フィルターを使って並び替え
-    sorted_videos = sort_by_filter(filter = filter, videos = videos, sort = request.POST.get('sort'))
+    sorted_videos = sort_by_filter(filter = request.POST.get('filter'), videos = videos, sort = request.POST.get('sort'))
 
     #表示用のリストを作成
     display_videos = make_display_videos(sorted_videos = sorted_videos, display = int(request.POST.get('display')))
 
     filters = {
         'words' : request.POST.get('word'),
-        'filter' : filter,
+        'filter' : check_filter(request.POST.get('filter')),
         'videos' : display_videos,
     }
     return render(request, 'youtube_filter/result_screen.html', filters)
@@ -55,7 +55,7 @@ def serch_youtube(request):
             i+=1
             movie_info = {}
             movie_info = get_movie_info(id = search_result["id"]["videoId"], youtube = youtube) #動画の情報を取得
-            movie_info['チャンネル登録者数'] = get_subscriber_count(channel_id = search_result["snippet"]["channelId"], youtube = youtube)
+            movie_info['Subscribe'] = get_subscriber_count(channel_id = search_result["snippet"]["channelId"], youtube = youtube)
             movie_info['url'] = 'https://www.youtube.com/watch?v=' + search_result["id"]["videoId"] #urlの取得
             videos.append(movie_info)
             #bad_count = get_bad_count(id = search_result["id"]["videoId"], youtube = youtube) 低評価だけとれない
@@ -85,7 +85,7 @@ def get_movie_info(id, youtube):
     #サムネイルの取得
     thumbnail = youtube.videos().list(part = 'snippet', id = id).execute()['items'][0]['snippet']['thumbnails']['medium']['url']#defaultをhighやmediumに変更できる
 
-    movie_info = {'再生回数':view_count, '高評価':good_count, 'コメント数':comment_count, 'channelTitle':channel_title, 'title':title, 'thumbnail':thumbnail}
+    movie_info = {'View':view_count, 'Good':good_count, 'Comment':comment_count, 'channelTitle':channel_title, 'title':title, 'thumbnail':thumbnail}
     return movie_info
 
 
@@ -103,40 +103,57 @@ def get_subscriber_count(channel_id, youtube):
                 subscriber_count = 1
             return subscriber_count
 
-
 def sort_by_filter(filter, videos, sort):
-    #取得した値を文字列から数値へ変換
-    num_videos = []
+    filter = check_filter(filter)
+    filter = filter.replace('×','*')
+    filter = filter.replace('÷','/')
     for video in videos:
-        num_video = {}
-        for k, v in video.items():
-            try:
-                num_video[k] = int(v)
-            except(ValueError):
-                num_video[k] = v
-        num_videos.append(num_video)
-
-    #フィルターの式を計算し値を'sort'に入力
-    for video in num_videos:
-        video['sort'] = video[filter[0]]
-        for i in range(2,len(filter), 2):
-            if filter[i] == '':
-                break
-            if filter[i-1] == '+':
-                video['sort'] = video['sort'] + video[filter[i]]
-            elif filter[i-1] == '-':
-                video['sort'] = video['sort'] - video[filter[i]]
-            elif filter[i-1] == '×':
-                video['sort'] = video['sort'] * video[filter[i]]
-            else:
-                video['sort'] = video['sort'] / video[filter[i]]
+        View = int(video['View'])
+        Good = int(video['Good'])
+        Subscribe = int(video['Subscribe'])
+        Comment = int(video['Comment'])
+        video['sort'] = eval(filter)
 
     #降順と昇順の識別
     if sort == 'desc':
-        sorted_videos = sorted(num_videos, key = lambda x : int(x['sort']), reverse = True)
+        sorted_videos = sorted(videos, key = lambda x : int(x['sort']), reverse = True)
     else:
-        sorted_videos = sorted(num_videos, key = lambda x : int(x['sort']))
+        sorted_videos = sorted(videos, key = lambda x : int(x['sort']))
     return sorted_videos
+
+# def sort_by_filter(filter, videos, sort):
+#     #取得した値を文字列から数値へ変換
+#     num_videos = []
+#     for video in videos:
+#         num_video = {}
+#         for k, v in video.items():
+#             try:
+#                 num_video[k] = int(v)
+#             except(ValueError):
+#                 num_video[k] = v
+#         num_videos.append(num_video)
+
+#     #フィルターの式を計算し値を'sort'に入力
+#     for video in num_videos:
+#         video['sort'] = video[filter[0]]
+#         for i in range(2,len(filter), 2):
+#             if filter[i] == '':
+#                 break
+#             if filter[i-1] == '+':
+#                 video['sort'] = video['sort'] + video[filter[i]]
+#             elif filter[i-1] == '-':
+#                 video['sort'] = video['sort'] - video[filter[i]]
+#             elif filter[i-1] == '×':
+#                 video['sort'] = video['sort'] * video[filter[i]]
+#             else:
+#                 video['sort'] = video['sort'] / video[filter[i]]
+
+#     #降順と昇順の識別
+#     if sort == 'desc':
+#         sorted_videos = sorted(num_videos, key = lambda x : int(x['sort']), reverse = True)
+#     else:
+#         sorted_videos = sorted(num_videos, key = lambda x : int(x['sort']))
+#     return sorted_videos
 
 #表示件数を指定
 def make_display_videos(sorted_videos, display):
@@ -144,3 +161,10 @@ def make_display_videos(sorted_videos, display):
     for i in range(display):
         display_videos.append(sorted_videos[i])
     return display_videos 
+
+#フィルターの最後が演算子か確認
+def check_filter(filter):
+    operator = ['+', '-', '×', '÷']
+    if filter[-1] in operator:
+        filter = filter[:-1]
+    return filter
