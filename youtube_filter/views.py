@@ -12,9 +12,6 @@ def result_screen(request):
     #入力結果から必要な情報をyoutubeから取得
     videos = serch_youtube(request = request)
 
-    #フィルターを分解
-    # filter = re.split("([+-×÷])",request.POST.get('filter'))
-
     #フィルターを使って並び替え
     sorted_videos = sort_by_filter(filter = request.POST.get('filter'), videos = videos, sort = request.POST.get('sort'))
 
@@ -47,12 +44,8 @@ def serch_youtube(request):
     ).execute()
 
     videos = []
-    i=1
-    print(len(search_response.get("items", [])))
     for search_result in search_response.get("items", []):
         if search_result["id"]["kind"] == "youtube#video":
-            print(i)
-            i+=1
             movie_info = {}
             movie_info = get_movie_info(id = search_result["id"]["videoId"], youtube = youtube) #動画の情報を取得
             movie_info['Subscribe'] = get_subscriber_count(channel_id = search_result["snippet"]["channelId"], youtube = youtube)
@@ -120,40 +113,6 @@ def sort_by_filter(filter, videos, sort):
     else:
         sorted_videos = sorted(videos, key = lambda x : int(x['sort']))
     return sorted_videos
-
-# def sort_by_filter(filter, videos, sort):
-#     #取得した値を文字列から数値へ変換
-#     num_videos = []
-#     for video in videos:
-#         num_video = {}
-#         for k, v in video.items():
-#             try:
-#                 num_video[k] = int(v)
-#             except(ValueError):
-#                 num_video[k] = v
-#         num_videos.append(num_video)
-
-#     #フィルターの式を計算し値を'sort'に入力
-#     for video in num_videos:
-#         video['sort'] = video[filter[0]]
-#         for i in range(2,len(filter), 2):
-#             if filter[i] == '':
-#                 break
-#             if filter[i-1] == '+':
-#                 video['sort'] = video['sort'] + video[filter[i]]
-#             elif filter[i-1] == '-':
-#                 video['sort'] = video['sort'] - video[filter[i]]
-#             elif filter[i-1] == '×':
-#                 video['sort'] = video['sort'] * video[filter[i]]
-#             else:
-#                 video['sort'] = video['sort'] / video[filter[i]]
-
-#     #降順と昇順の識別
-#     if sort == 'desc':
-#         sorted_videos = sorted(num_videos, key = lambda x : int(x['sort']), reverse = True)
-#     else:
-#         sorted_videos = sorted(num_videos, key = lambda x : int(x['sort']))
-#     return sorted_videos
 
 #表示件数を指定
 def make_display_videos(sorted_videos, display):
